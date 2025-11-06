@@ -123,7 +123,7 @@ func (k *keycloakAuth) ServeHTTP(rw http.ResponseWriter, req *http.Request) {
 		req.URL.RawQuery = qry.Encode()
 		req.RequestURI = req.URL.RequestURI()
 
-		scheme := req.Header.Get("X-Forwarded-Proto")
+		scheme := "https" // req.Header.Get("X-Forwarded-Proto")
 		host := req.Header.Get("X-Forwarded-Host")
 		originalURL := fmt.Sprintf("%s://%s%s", scheme, host, req.RequestURI)
 
@@ -195,7 +195,7 @@ func (k *keycloakAuth) exchangeAuthCode(req *http.Request, authCode string, stat
 }
 
 func (k *keycloakAuth) redirectToKeycloak(rw http.ResponseWriter, req *http.Request) {
-	scheme := req.Header.Get("X-Forwarded-Proto")
+	scheme := "https" // req.Header.Get("X-Forwarded-Proto")
 	host := req.Header.Get("X-Forwarded-Host")
 	originalURL := fmt.Sprintf("%s://%s%s", scheme, host, req.RequestURI)
 	query := req.URL.Query()
